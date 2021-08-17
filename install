@@ -15,4 +15,4 @@ done
 
 # activate gitignore_global
 git config --global core.excludesfile ~/.gitignore_global
-git.exe config --global core.excludesfile %USERPROFILE%/.gitignore_global
+git.exe config --global core.excludesfile $(wslvar USERPROFILE)\\.gitignore_global
