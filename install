@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -e
+
+WINHOME="$(wslpath "$(wslvar USERPROFILE)")"
+
+files=(.vimrc .gitconfig .gitignore_global)
+
+cd $HOME
+for file in "${files[@]}"
+do
+  cp -f dotfiles/$file $HOME/
+  cp -f dotfiles/$file $WINHOME/
+done
+
+# activate gitignore_global
+git config --global core.excludesfile ~/.gitignore_global
+git.exe config --global core.excludesfile %USERPROFILE%/.gitignore_global

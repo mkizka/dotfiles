@@ -1,0 +1,4 @@
+[credential "helperselector"]
+  selected = manager-core
+[core]
+  autocrlf = false
