@@ -1,2 +1,5 @@
 [core]
-  autocrlf = false
+    autocrlf = false
+[init]
+    defaultBranch = main
+
