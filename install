@@ -13,6 +13,9 @@ do
   cp -f dotfiles/$file $WINHOME/
 done
 
+# .wslconfigはWindows側にのみ置く
+cp -f dotfiles/.wslconfig $WINHOME/
+
 # gitignore_globalの有効化
 git config --global core.excludesfile ~/.gitignore_global
 git.exe config --global core.excludesfile $(wslvar USERPROFILE)\\.gitignore_global
