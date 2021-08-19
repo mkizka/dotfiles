@@ -16,10 +16,6 @@ done
 # .wslconfigはWindows側にのみ置く
 cp -f dotfiles/.wslconfig $WINHOME/
 
-# gitignore_globalの有効化
-git config --global core.excludesfile ~/.gitignore_global
-git.exe config --global core.excludesfile $(wslvar USERPROFILE)\\.gitignore_global
-
 # WSLでWindowsの認証情報を使用する
 # https://qiita.com/snaka/items/cc83553a81e00b2d26f3
 git config --global credential.helper "${WINHOME}/scoop/apps/git/current/mingw64/libexec/git-core/git-credential-manager-core.exe"
