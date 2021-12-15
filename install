@@ -22,3 +22,15 @@ sudo cp -f dotfiles/wsl.conf /etc/wsl.conf
 # WSLでWindowsの認証情報を使用する
 # https://qiita.com/snaka/items/cc83553a81e00b2d26f3
 git config --global credential.helper "${WINHOME}/scoop/apps/git/current/mingw64/libexec/git-core/git-credential-manager-core.exe"
+
+# fishのインストール
+if [ ! -e `which fish` ]; then
+  sudo apt install -y software-properties-common
+  sudo apt-add-repository -y ppa:fish-shell/release-3
+  sudo apt update
+  sudo apt install fish
+fi
+
+# fisherでプラグインを更新
+cp dotfiles/fish/fish_plugins ~/.config/fish/
+fish -c "curl -sL git.io/fisher | source && fisher update"
