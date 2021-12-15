@@ -2,15 +2,6 @@
 
 set -e
 
-# https://get.docker.com/
-is_wsl() {
-	case "$(uname -r)" in
-	*microsoft* ) true ;; # WSL 2
-	*Microsoft* ) true ;; # WSL 1
-	* ) false;;
-	esac
-}
-
 echo "# cd $HOME"
 cd $HOME
 
@@ -21,7 +12,7 @@ echo "
 .gitignore_global
 " | xargs -P4 -i cp -f dotfiles/{} $HOME/
 
-if is_wsl; then
+if [ -e `which wslpath` ]; then
   echo "# WSL関連ファイルをコピー"
   WINHOME="$(wslpath "$(wslvar USERPROFILE)")"
   # .wslconfigはWindows側にのみ置く
