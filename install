@@ -2,34 +2,45 @@
 
 set -e
 
-WINHOME="$(wslpath "$(wslvar USERPROFILE)")"
+# https://get.docker.com/
+is_wsl() {
+	case "$(uname -r)" in
+	*microsoft* ) true ;; # WSL 2
+	*Microsoft* ) true ;; # WSL 1
+	* ) false;;
+	esac
+}
 
-files=(.vimrc .gitconfig .gitignore_global)
-
+echo "# cd $HOME"
 cd $HOME
-for file in "${files[@]}"
-do
-  cp -f dotfiles/$file $HOME/
-done
 
-# .wslconfigはWindows側にのみ置く
-cp -f dotfiles/.wslconfig $WINHOME/
+echo "# \$HOMEに置くファイルをコピー"
+echo "
+.vimrc
+.gitconfig
+.gitignore_global
+" | xargs -P4 -i cp -f dotfiles/{} $HOME/
 
-# wsl.confはWSL側にのみ置く
-sudo cp -f dotfiles/wsl.conf /etc/wsl.conf
+if is_wsl; then
+  echo "# WSL関連ファイルをコピー"
+  WINHOME="$(wslpath "$(wslvar USERPROFILE)")"
+  # .wslconfigはWindows側にのみ置く
+  cp -f dotfiles/.wslconfig $WINHOME/
+  # wsl.confはWSL側にのみ置く
+  sudo cp -f dotfiles/wsl.conf /etc/wsl.conf
+  # WSLでWindowsの認証情報を使用する
+  # https://qiita.com/snaka/items/cc83553a81e00b2d26f3
+  git config --global credential.helper "${WINHOME}/scoop/apps/git/current/mingw64/libexec/git-core/git-credential-manager-core.exe"
+fi
 
-# WSLでWindowsの認証情報を使用する
-# https://qiita.com/snaka/items/cc83553a81e00b2d26f3
-git config --global credential.helper "${WINHOME}/scoop/apps/git/current/mingw64/libexec/git-core/git-credential-manager-core.exe"
-
-# fishのインストール
 if [ ! -e `which fish` ]; then
+  echo "# fishのインストール"
   sudo apt install -y software-properties-common
   sudo apt-add-repository -y ppa:fish-shell/release-3
   sudo apt update
   sudo apt install fish
 fi
 
-# fisherでプラグインを更新
+echo "# fisherでプラグインを更新"
 cp dotfiles/fish/fish_plugins ~/.config/fish/
 fish -c "curl -sL git.io/fisher | source && fisher update"
