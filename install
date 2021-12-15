@@ -10,7 +10,6 @@ cd $HOME
 for file in "${files[@]}"
 do
   cp -f dotfiles/$file $HOME/
-  cp -f dotfiles/$file $WINHOME/
 done
 
 # .wslconfigはWindows側にのみ置く
