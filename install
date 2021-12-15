@@ -12,7 +12,7 @@ echo "
 .gitignore_global
 " | xargs -P4 -i cp -f dotfiles/{} $HOME/
 
-if [ -e `which wslpath` ]; then
+if [ -n `which wslpath` ]; then
   echo "# WSL関連ファイルをコピー"
   WINHOME="$(wslpath "$(wslvar USERPROFILE)")"
   # .wslconfigはWindows側にのみ置く
@@ -24,7 +24,7 @@ if [ -e `which wslpath` ]; then
   git config --global credential.helper "${WINHOME}/scoop/apps/git/current/mingw64/libexec/git-core/git-credential-manager-core.exe"
 fi
 
-if [ ! -e `which fish` ]; then
+if [ -z `which fish` ]; then
   echo "# fishのインストール"
   sudo apt install -y software-properties-common
   sudo apt-add-repository -y ppa:fish-shell/release-3
