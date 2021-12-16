@@ -2,6 +2,7 @@
 
 set -e
 
+DEBIAN_FRONTEND=noninteractive
 DOTFILES=$HOME/dotfiles
 
 if [ ! -d $DOTFILES ]; then
@@ -32,7 +33,7 @@ if [ -z "$(which fish)" ]; then
   sudo apt install -y software-properties-common
   sudo apt-add-repository -y ppa:fish-shell/release-3
   sudo apt update
-  sudo apt install fish
+  sudo apt install -y fish
 fi
 
 echo "# fisherでプラグインを更新"
