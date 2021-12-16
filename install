@@ -37,5 +37,6 @@ if [ -z "$(which fish)" ]; then
 fi
 
 echo "# fisherでプラグインを更新"
+mkdir -p ~/.config/fish
 cp $DOTFILES/fish/fish_plugins ~/.config/fish/
 fish -c "curl -sL git.io/fisher | source && fisher update"
