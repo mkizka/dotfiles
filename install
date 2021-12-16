@@ -40,3 +40,11 @@ echo "# fisherでプラグインを更新"
 mkdir -p ~/.config/fish
 cp $DOTFILES/fish/fish_plugins ~/.config/fish/
 fish -c "curl -sL git.io/fisher | source && fisher update"
+
+if [ "$(tail -n 1 ~/.bashrc)" != "exec fish" ]; then
+  echo "# ~/.bashrc末尾にexec fish追加"
+  echo "exec fish" >> ~/.bashrc
+fi
+
+echo "# シェルの再起動"
+exec -l $SHELL
