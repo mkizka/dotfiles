@@ -2,7 +2,7 @@
 
 set -e
 
-DEBIAN_FRONTEND=noninteractive
+export DEBIAN_FRONTEND=noninteractive
 DOTFILES=$HOME/dotfiles
 
 if [ ! -d $DOTFILES ]; then
