@@ -2,15 +2,12 @@
 
 set -e
 
-DOTFILES_DIR=$HOME/dotfiles
-
-echo "必要なパッケージのインストールと更新"
-sudo apt update
-if [ -z "$(which git)" ]; then
-  sudo apt install -y git
-fi
+DOTFILES=$HOME/dotfiles
 
 if [ ! -d $DOTFILES ]; then
+  if [ -z "$(which git)" ]; then
+    sudo apt install -y git
+  fi
   echo "# dotfilesをクローン"
   git clone https://github.com/mkizka/dotfiles $DOTFILES
 fi
