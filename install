@@ -2,19 +2,29 @@
 
 set -e
 
-echo "# cd $HOME"
-cd $HOME
+DOTFILES_DIR=$HOME/dotfiles
+
+echo "必要なパッケージのインストールと更新"
+sudo apt update
+if [ -z "$(which git)" ]; then
+  sudo apt install -y git
+fi
+
+if [ ! -d $DOTFILES ]; then
+  echo "# dotfilesをクローン"
+  git clone https://github.com/mkizka/dotfiles $DOTFILES
+fi
 
 echo "# \$HOMEに置くファイルをコピー"
-cp -afT dotfiles/home $HOME
+cp -afT $DOTFILES/home $HOME
 
 if [ -n "$(which wslpath)" ]; then
   echo "# WSL関連ファイルをコピー"
   WINHOME="$(wslpath "$(wslvar USERPROFILE)")"
   # .wslconfigはWindows側にのみ置く
-  cp -f dotfiles/wsl/.wslconfig $WINHOME/
+  cp -f $DOTFILES/wsl/.wslconfig $WINHOME/
   # wsl.confはWSL側にのみ置く
-  sudo cp -f dotfiles/wsl/wsl.conf /etc/wsl.conf
+  sudo cp -f $DOTFILES/wsl/wsl.conf /etc/wsl.conf
   # WSLでWindowsの認証情報を使用する
   # https://qiita.com/snaka/items/cc83553a81e00b2d26f3
   git config --global credential.helper "${WINHOME}/scoop/apps/git/current/mingw64/libexec/git-core/git-credential-manager-core.exe"
@@ -29,5 +39,5 @@ if [ -z "$(which fish)" ]; then
 fi
 
 echo "# fisherでプラグインを更新"
-cp dotfiles/fish/fish_plugins ~/.config/fish/
+cp $DOTFILES/fish/fish_plugins ~/.config/fish/
 fish -c "curl -sL git.io/fisher | source && fisher update"
