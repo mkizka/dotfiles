@@ -47,4 +47,4 @@ if [ "$(tail -n 1 ~/.bashrc)" != "exec fish" ]; then
 fi
 
 echo "# シェルの再起動"
-exec -l $SHELL
+exec $SHELL -l
