@@ -6,11 +6,7 @@ echo "# cd $HOME"
 cd $HOME
 
 echo "# \$HOMEに置くファイルをコピー"
-echo "
-.vimrc
-.gitconfig
-.gitignore_global
-" | xargs -P4 -i cp -f dotfiles/{} $HOME/
+cp -afT dotfiles/home $HOME
 
 if [ -n "$(which wslpath)" ]; then
   echo "# WSL関連ファイルをコピー"
