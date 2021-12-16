@@ -2,7 +2,6 @@
 
 set -e
 
-export DEBIAN_FRONTEND=noninteractive
 DOTFILES=$HOME/dotfiles
 
 if [ ! -d $DOTFILES ]; then
@@ -30,7 +29,8 @@ fi
 
 if [ -z "$(which fish)" ]; then
   echo "# fishのインストール"
-  sudo apt install -y software-properties-common
+  # tzdataの対話を無視
+  sudo DEBIAN_FRONTEND=noninteractive apt install -y software-properties-common
   sudo apt-add-repository -y ppa:fish-shell/release-3
   sudo apt update
   sudo apt install -y fish
