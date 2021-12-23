@@ -4,6 +4,17 @@ set -e
 
 DOTFILES=$HOME/dotfiles
 
+if [ -z "$(which sudo)" ]; then
+  echo "# sudoコマンドのインストール"
+  apt install -y sudo
+fi
+
+echo "# sources.listを編集"
+sudo sed -i.bak \
+  -e "s|http://archive.ubuntu.com|http://jp.archive.ubuntu.com|g" \
+  /etc/apt/sources.list
+sudo apt update
+
 if [ ! -d $DOTFILES ]; then
   if [ -z "$(which git)" ]; then
     sudo apt install -y git
