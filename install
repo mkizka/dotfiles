@@ -21,6 +21,11 @@ if [ ! -d "$DOTFILES" ]; then
   fi
   echo "# dotfilesをクローン"
   git clone https://github.com/mkizka/dotfiles "$DOTFILES"
+else
+  echo "# dotfilesをアップデート"
+  cd "$DOTFILES"
+  git pull
+  cd -
 fi
 
 echo "# \$HOMEに置くファイルをコピー"
