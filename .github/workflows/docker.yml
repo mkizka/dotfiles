@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - docker-action
+name: "CD"
+jobs:
+  docker:
+    name: Docker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: mkizka
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: mkizka/dotfiles:latest
+          cache-from: type=registry,ref=mkizka/dotfiles:latest
+          cache-to: type=inline
