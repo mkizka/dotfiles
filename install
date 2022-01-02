@@ -31,16 +31,24 @@ fi
 echo "# \$HOMEに置くファイルをコピー"
 cp -afT "$DOTFILES"/home "$HOME"
 
-if [ -n "$(which wslpath)" ]; then
-  echo "# WSL関連ファイルをコピー"
-  WINHOME="$(wslpath "$(wslvar USERPROFILE)")"
-  # .wslconfigはWindows側にのみ置く
-  cp -f "$DOTFILES"/wsl/.wslconfig "$WINHOME"/
-  # wsl.confはWSL側にのみ置く
-  sudo cp -f "$DOTFILES"/wsl/wsl.conf /etc/wsl.conf
-  # WSLでWindowsの認証情報を使用する
-  # https://qiita.com/snaka/items/cc83553a81e00b2d26f3
-  git config --global credential.helper "${WINHOME}/scoop/apps/git/current/mingw64/libexec/git-core/git-credential-manager-core.exe"
+if [ -n "$(which wslpath)" ] && [ -n "$(which wslvar)" ]; then
+  echo "# WSL関連ファイルのコピーと設定"
+  USERPROFILE="$(wslvar USERPROFILE 2>/dev/null)"
+  if [ -n "$USERPROFILE" ]; then
+    WINHOME="$(wslpath "USERPROFILE="$(wslvar USERPROFILE 2>/dev/null)"")"
+    echo "# \$WINHOME: $WINHOME"
+    # .wslconfigはWindows側にのみ置く
+    cp -f "$DOTFILES"/wsl/.wslconfig "$WINHOME"/
+    # wsl.confはWSL側にのみ置く
+    sudo cp -f "$DOTFILES"/wsl/wsl.conf /etc/wsl.conf
+    # WSLでWindowsの認証情報を使用する
+    # https://qiita.com/snaka/items/cc83553a81e00b2d26f3
+    git config --global credential.helper "${WINHOME}/scoop/apps/git/current/mingw64/libexec/git-core/git-credential-manager-core.exe"
+  else
+    echo "# エラー: USERPROFILEの値が取得できませんでした"
+  fi
+else 
+  echo "# WSL関連の処理をスキップ"
 fi
 
 if [ -z "$(which fish)" ]; then
