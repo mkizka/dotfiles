@@ -4,7 +4,7 @@ set -eu
 
 DOTFILES=$HOME/dotfiles
 
-if [ -z "$(which sudo)" ]; then
+if [ -z "$(command -v sudo)" ]; then
   echo "# sudoコマンドのインストール"
   apt install -y sudo
 fi
@@ -16,7 +16,7 @@ sudo sed -i.bak \
 sudo apt update
 
 if [ ! -d "$DOTFILES" ]; then
-  if [ -z "$(which git)" ]; then
+  if [ -z "$(command -v git)" ]; then
     sudo apt install -y git
   fi
   echo "# dotfilesをクローン"
@@ -31,12 +31,12 @@ fi
 echo "# \$HOMEに置くファイルをコピー"
 cp -afT "$DOTFILES"/home "$HOME"
 
-if [ -n "$(which wslpath)" ] && [ -n "$(which wslvar)" ]; then
+if [ -n "$(command -v wslpath)" ] && [ -n "$(command -v wslvar)" ]; then
   echo "# WSL関連ファイルのコピーと設定"
   USERPROFILE="$(wslvar USERPROFILE)"
   if [ -n "$USERPROFILE" ]; then # Remote Containerでまれに取れない
-    USERPROFILE="$(echo $USERPROFILE | tr " " "\n" | tail -n 1)" # distrodで出るエラー文を除去
-    WINHOME="$(wslpath $USERPROFILE)"
+    USERPROFILE="$(echo "$USERPROFILE" | tr " " "\n" | tail -n 1)" # distrodで出るエラー文を除去
+    WINHOME="$(wslpath "$USERPROFILE")"
     echo "# \$WINHOME: $WINHOME"
     # .wslconfigはWindows側にのみ置く
     cp -f "$DOTFILES"/wsl/.wslconfig "$WINHOME"/
@@ -52,7 +52,7 @@ else
   echo "# WSL関連の処理をスキップ"
 fi
 
-if [ -z "$(which fish)" ]; then
+if [ -z "$(command -v fish)" ]; then
   echo "# fishのインストール"
   # tzdataの対話を無視
   sudo DEBIAN_FRONTEND=noninteractive apt install -y software-properties-common
