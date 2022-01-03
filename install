@@ -4,7 +4,12 @@ set -eu
 
 DOTFILES=$HOME/dotfiles
 
-if [ -z "$(command -v sudo)" ]; then
+# https://qiita.com/okamos/items/40966158d0271ae7198b
+has() {
+  type "$1" > /dev/null 2>&1
+}
+
+if ! has sudo; then
   echo "# sudoコマンドのインストール"
   apt install -y sudo
 fi
@@ -16,7 +21,7 @@ sudo sed -i.bak \
 sudo apt update
 
 if [ ! -d "$DOTFILES" ]; then
-  if [ -z "$(command -v git)" ]; then
+  if ! has git; then
     sudo apt install -y git
   fi
   echo "# dotfilesをクローン"
@@ -31,7 +36,7 @@ fi
 echo "# \$HOMEに置くファイルをコピー"
 cp -afT "$DOTFILES"/home "$HOME"
 
-if [ -n "$(command -v wslpath)" ] && [ -n "$(command -v wslvar)" ]; then
+if has wslpath && has wslvar; then
   echo "# WSL関連ファイルのコピーと設定"
   USERPROFILE="$(wslvar USERPROFILE)"
   if [ -n "$USERPROFILE" ]; then # Remote Containerでまれに取れない
@@ -52,7 +57,7 @@ else
   echo "# WSL関連の処理をスキップ"
 fi
 
-if [ -z "$(command -v fish)" ]; then
+if ! has fish; then
   echo "# fishのインストール"
   # tzdataの対話を無視
   sudo DEBIAN_FRONTEND=noninteractive apt install -y software-properties-common
