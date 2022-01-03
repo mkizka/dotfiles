@@ -33,9 +33,10 @@ cp -afT "$DOTFILES"/home "$HOME"
 
 if [ -n "$(which wslpath)" ] && [ -n "$(which wslvar)" ]; then
   echo "# WSL関連ファイルのコピーと設定"
-  USERPROFILE="$(wslvar USERPROFILE 2>/dev/null)"
-  if [ -n "$USERPROFILE" ]; then
-    WINHOME="$(wslpath "USERPROFILE="$(wslvar USERPROFILE 2>/dev/null)"")"
+  USERPROFILE="$(wslvar USERPROFILE)"
+  if [ -n "$USERPROFILE" ]; then # Remote Containerでまれに取れない
+    USERPROFILE="$(echo $USERPROFILE | tr " " "\n" | tail -n 1)" # distrodで出るエラー文を除去
+    WINHOME="$(wslpath $USERPROFILE)"
     echo "# \$WINHOME: $WINHOME"
     # .wslconfigはWindows側にのみ置く
     cp -f "$DOTFILES"/wsl/.wslconfig "$WINHOME"/
