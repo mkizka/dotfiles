@@ -20,6 +20,10 @@ sudo sed -i.bak \
   /etc/apt/sources.list
 sudo apt update
 
+if ! has vim; then
+  echo "# vimコマンドのインストール"
+  apt install -y vim
+fi
 echo "# デフォルトエディタをvimに"
 sudo update-alternatives --set editor /usr/bin/vim.basic
 
