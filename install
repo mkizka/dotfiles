@@ -20,6 +20,9 @@ sudo sed -i.bak \
   /etc/apt/sources.list
 sudo apt update
 
+echo "# デフォルトエディタをvimに"
+sudo update-alternatives --set editor /usr/bin/vim.basic
+
 if [ ! -d "$DOTFILES" ]; then
   if ! has git; then
     sudo apt install -y git
