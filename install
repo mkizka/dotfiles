@@ -12,6 +12,8 @@ has() {
 if ! has sudo; then
   echo "# sudoコマンドのインストール"
   apt install -y sudo
+else 
+  echo "# [スキップ]sudoコマンドのインストール"
 fi
 
 echo "# sources.listを編集"
@@ -23,15 +25,18 @@ sudo apt update
 if ! has vim; then
   echo "# vimコマンドのインストール"
   apt install -y vim
+else 
+  echo "# [スキップ]vimコマンドのインストール"
 fi
+
 echo "# デフォルトエディタをvimに"
 sudo update-alternatives --set editor /usr/bin/vim.basic
 
 if [ ! -d "$DOTFILES" ]; then
+  echo "# dotfilesをクローン"
   if ! has git; then
     sudo apt install -y git
   fi
-  echo "# dotfilesをクローン"
   git clone https://github.com/mkizka/dotfiles "$DOTFILES"
 else
   echo "# dotfilesをアップデート"
@@ -57,10 +62,10 @@ if has wslpath && has wslvar; then
     # https://qiita.com/snaka/items/cc83553a81e00b2d26f3
     git config --global credential.helper "${WINHOME}/scoop/apps/git/current/mingw64/bin/git-credential-manager-core.exe"
   else
-    echo "# エラー: USERPROFILEの値が取得できませんでした"
+    echo "# [エラー]USERPROFILEの値が取得できませんでした"
   fi
 else 
-  echo "# WSL関連の処理をスキップ"
+  echo "# [スキップ]WSL関連ファイルのコピーと設定"
 fi
 
 if ! has fish; then
@@ -70,6 +75,8 @@ if ! has fish; then
   sudo apt-add-repository -y ppa:fish-shell/release-3
   sudo apt update
   sudo apt install -y fish
+else 
+  echo "# [スキップ]fishのインストール"
 fi
 
 echo "# fishをデフォルトシェルに"
