@@ -80,7 +80,7 @@ else
 fi
 
 echo "# fishをデフォルトシェルに"
-sudo chsh $USER -s /usr/bin/fish
+sudo chsh "$USER" -s /usr/bin/fish
 
 echo "# fisherでプラグインを更新"
 mkdir -p ~/.config/fish
