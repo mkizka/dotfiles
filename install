@@ -79,6 +79,14 @@ else
   echo "# [スキップ]fishのインストール"
 fi
 
+if ! has fzf; then
+  echo "# fzfのインストール"
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  fish -c "~/.fzf/install"
+else
+  echo "# [スキップ]fzfのインストール"
+fi
+
 echo "# fishをデフォルトシェルに"
 sudo chsh "$USER" -s /usr/bin/fish
 
