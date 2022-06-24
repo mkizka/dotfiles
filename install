@@ -18,7 +18,7 @@ fi
 
 echo "# sources.listを編集"
 sudo sed -i.bak \
-  -e "s|http://archive.ubuntu.com|https://ftp.udx.icscoe.jp/Linux|g" \
+  -e "s|http://archive.ubuntu.com|http://jp.archive.ubuntu.com|g" \
   /etc/apt/sources.list
 sudo apt update
 
