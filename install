@@ -68,9 +68,6 @@ if is_wsl; then
     cp -f "$DOTFILES"/wsl/.wslconfig "$WINHOME"/
     # wsl.confはWSL側にのみ置く
     sudo cp -f "$DOTFILES"/wsl/wsl.conf /etc/wsl.conf
-    # WSLでWindowsの認証情報を使用する
-    # https://qiita.com/snaka/items/cc83553a81e00b2d26f3
-    git config --global credential.helper "${WINHOME}/scoop/apps/git/current/mingw64/bin/git-credential-manager-core.exe"
   else
     echo "# [エラー]USERPROFILEの値が取得できませんでした"
   fi
