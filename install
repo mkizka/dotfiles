@@ -26,21 +26,43 @@ sudo sed -i.bak \
   /etc/apt/sources.list
 sudo apt update
 
-if ! has vim; then
-  echo "# vimコマンドのインストール"
-  apt install -y vim
-else 
-  echo "# [スキップ]vimコマンドのインストール"
+if ! has git; then
+  echo "# gitのインストール"
+  sudo apt install -y git
+else
+  echo "# [スキップ]gitのインストール"
 fi
 
-echo "# デフォルトエディタをvimに"
-sudo update-alternatives --set editor /usr/bin/vim.basic
+if ! has vim; then
+  echo "# vimのインストール"
+  apt install -y vim
+  sudo update-alternatives --set editor /usr/bin/vim.basic
+else 
+  echo "# [スキップ]vimのインストール"
+fi
+
+if ! has fish; then
+  echo "# fishのインストール"
+  # tzdataの対話を無視
+  sudo DEBIAN_FRONTEND=noninteractive apt install -y software-properties-common
+  sudo apt-add-repository -y ppa:fish-shell/release-3
+  sudo apt update
+  sudo apt install -y fish
+  sudo chsh "$USER" -s /usr/bin/fish
+else 
+  echo "# [スキップ]fishのインストール"
+fi
+
+if ! has fzf; then
+  echo "# fzfのインストール"
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  fish -c "$HOME/.fzf/install"
+else
+  echo "# [スキップ]fzfのインストール"
+fi
 
 if [ ! -d "$DOTFILES" ]; then
   echo "# dotfilesをクローン"
-  if ! has git; then
-    sudo apt install -y git
-  fi
   git clone https://github.com/mkizka/dotfiles "$DOTFILES"
 else
   echo "# dotfilesをアップデート"
@@ -75,32 +97,12 @@ else
   echo "# [スキップ]WSL関連ファイルのコピーと設定"
 fi
 
-if ! has fish; then
-  echo "# fishのインストール"
-  # tzdataの対話を無視
-  sudo DEBIAN_FRONTEND=noninteractive apt install -y software-properties-common
-  sudo apt-add-repository -y ppa:fish-shell/release-3
-  sudo apt update
-  sudo apt install -y fish
+if ! has fisher; then
+  echo "# fisherのインストール"
+  fish -c "curl -sL git.io/fisher | source && fisher update"
 else 
-  echo "# [スキップ]fishのインストール"
+  echo "# [スキップ]fisherのインストール"
 fi
-
-if ! has fzf; then
-  echo "# fzfのインストール"
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-  fish -c "$HOME/.fzf/install"
-else
-  echo "# [スキップ]fzfのインストール"
-fi
-
-echo "# fishをデフォルトシェルに"
-sudo chsh "$USER" -s /usr/bin/fish
-
-echo "# fisherでプラグインを更新"
-mkdir -p ~/.config/fish
-cp "$DOTFILES"/fish/fish_plugins ~/.config/fish/
-fish -c "curl -sL git.io/fisher | source && fisher update"
 
 echo "# シェルの再起動"
 exec "$SHELL" -l
