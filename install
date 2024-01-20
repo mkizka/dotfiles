@@ -33,6 +33,13 @@ else
   echo "# [スキップ]gitのインストール"
 fi
 
+if ! has unzip; then
+  echo "# unzipのインストール"
+  sudo apt install -y unzip
+else
+  echo "# [スキップ]unzipのインストール"
+fi
+
 if ! has vim; then
   echo "# vimのインストール"
   apt install -y vim
@@ -59,6 +66,13 @@ if ! has fzf; then
   fish -c "$HOME/.fzf/install"
 else
   echo "# [スキップ]fzfのインストール"
+fi
+
+if ! has mise; then
+  echo "# miseのインストール"
+  curl https://mise.jdx.dev/install.sh | sh
+else 
+  echo "# [スキップ]miseのインストール"
 fi
 
 if [ ! -d "$DOTFILES" ]; then
