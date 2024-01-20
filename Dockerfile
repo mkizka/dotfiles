@@ -1,6 +1,6 @@
 FROM ubuntu
 RUN apt update && apt install -y curl
-COPY . /root/dotfiles/
+COPY ./install .
 ENV USER root
-RUN /root/dotfiles/install
+RUN chmod +x ./install && ./install
 CMD ["fish"]
