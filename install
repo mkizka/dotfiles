@@ -20,11 +20,15 @@ else
   echo "# [スキップ]sudoコマンドのインストール"
 fi
 
-echo "# sources.listを編集"
-sudo sed -i.bak \
-  -e "s|http://archive.ubuntu.com|http://jp.archive.ubuntu.com|g" \
-  /etc/apt/sources.list
-sudo apt update
+if ! grep -q jp /etc/apt/sources.list; then
+  echo "# sources.listを編集"
+  sudo sed -i.bak \
+    -e "s|http://archive.ubuntu.com|http://jp.archive.ubuntu.com|g" \
+    /etc/apt/sources.list
+  sudo apt update
+else
+  echo "# [スキップ]sources.listを編集"
+fi
 
 if ! has git; then
   echo "# gitのインストール"
@@ -79,23 +83,21 @@ if [ ! -d "$DOTFILES" ]; then
   echo "# dotfilesをクローン"
   git clone https://github.com/mkizka/dotfiles "$DOTFILES"
 else
-  echo "# dotfilesをアップデート"
-  cd "$DOTFILES"
-  git pull
-  cd -
+  echo "# [スキップ]dotfilesをクローン"
 fi
 
 echo "# \$HOMEに置くファイルをコピー"
 cp -afT "$DOTFILES"/home "$HOME"
 
 if is_wsl; then
+  echo "# WSLを検出"
   if ! has wslvar; then
     echo "# wsluのインストール"
     sudo apt install -y wslu
   else 
     echo "# [スキップ]wsluのインストール"
   fi
-  echo "# WSL関連ファイルのコピーと設定"
+  echo "# WSL関連ファイルをコピー"
   USERPROFILE="$(wslvar USERPROFILE)"
   if [ -n "$USERPROFILE" ]; then
     WINHOME="$(wslpath "$USERPROFILE")"
@@ -112,8 +114,8 @@ else
 fi
 
 if ! has fisher; then
-  echo "# fisherのインストール"
-  fish -c "curl -sL git.io/fisher | source && fisher update"
+  echo "# fisherのインストールとアップデート"
+  fish -c "curl -sL git.io/fisher | source && fisher update > /dev/null"
 else 
   echo "# [スキップ]fisherのインストール"
 fi
