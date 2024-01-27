@@ -2,7 +2,8 @@ if status is-interactive
   # Commands to run in interactive sessions can go here
 end
 
-alias gg='ghq get'
+alias px='pnpm -s dlx'
+alias gg='ghq get --look'
 alias gd='cd (ghq list -p | fzf)'
 
 # mise
