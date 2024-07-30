@@ -1,0 +1,25 @@
+name: "ShellCheck and Depoy"
+
+on:
+  pull_request:
+
+jobs:
+  shellcheck:
+    name: "ShellCheck"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ludeeus/action-shellcheck@master
+  build:
+    name: "Build"
+    runs-on: ubuntu-latest
+    needs: [shellcheck]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: docker/setup-buildx-action@v1
+      - uses: docker/build-push-action@v2
+        with:
+          push: false
+          tags: mkizka/dotfiles:latest
+          cache-from: type=registry,ref=mkizka/dotfiles:latest
+          cache-to: type=inline
