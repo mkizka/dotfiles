@@ -26,11 +26,7 @@
     depth: 1
 
 - name: fzfをインストール
-  command: "{{ ansible_env.HOME }}/.fzf/install"
-  args:
-    executable: /usr/bin/fish
+  shell: fish -c "{{ ansible_env.HOME }}/.fzf/install"
 
 - name: fisherをインストール
-  command: curl -sL git.io/fisher | source && fisher update
-  args:
-    executable: /usr/bin/fish
+  shell: fish -c "curl -sL git.io/fisher | source && fisher update"
