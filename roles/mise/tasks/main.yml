@@ -1,4 +1,8 @@
 ---
+- name: miseに必要なパッケージをインストール
+  apt:
+    name: unzip
+
 - name: miseの設定ファイルを配置
   copy:
     src: files/

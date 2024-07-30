@@ -7,12 +7,10 @@
 - name: fishリポジトリを追加
   apt_repository:
     repo: ppa:fish-shell/release-3
-    state: present
 
 - name: fishをインストール
   apt:
     name: fish
-    state: present
 
 - name: fishをデフォルトシェルに設定
   user:

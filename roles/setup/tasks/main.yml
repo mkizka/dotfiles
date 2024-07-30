@@ -6,12 +6,9 @@
     replace: 'http://jp.archive.ubuntu.com'
     backup: yes
 
-- name: 必要なパッケージをインストール
+- name: よく使うパッケージをインストール
   apt:
     name:
       - git
-      - unzip
       - vim
-      - software-properties-common
     update_cache: yes
-    state: present
