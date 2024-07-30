@@ -3,13 +3,17 @@
   apt:
     name: unzip
 
+- name: miseコマンド確認
+  stat:
+    path: '{{ ansible_env.HOME }}/.local/bin/mise'
+  register: mise_command
+
+- name: miseのインストール
+  shell: curl https://mise.jdx.dev/install.sh | sh
+  when: not mise_command.stat.exists
+
 - name: miseの設定ファイルを配置
   copy:
     src: files/
     dest: "{{ ansible_env.HOME }}/.config/mise/"
-
-- name: miseのインストール
-  shell: curl https://mise.jdx.dev/install.sh | sh
-
-- name: mise install実行
-  command: '{{ ansible_env.HOME }}/.local/bin/mise install -y'
+  notify: mise_install
