@@ -1,0 +1,17 @@
+---
+- name: sources.listの向き先を日本に変更
+  replace:
+    path: /etc/apt/sources.list
+    regexp: 'http://archive.ubuntu.com'
+    replace: 'http://jp.archive.ubuntu.com'
+    backup: yes
+
+- name: 必要なパッケージをインストール
+  apt:
+    name:
+      - git
+      - unzip
+      - vim
+      - software-properties-common
+    update_cache: yes
+    state: present

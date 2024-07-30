@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  become: yes
+  roles:
+    - setup
+    - dotfiles
+    # - fish
+    # - wsl

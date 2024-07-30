@@ -1,0 +1,16 @@
+---
+- name: Install wslu if in WSL
+  apt:
+    name: wslu
+    state: present
+
+- name: Copy WSL files
+  copy:
+    src: '{{ ansible_env.HOME }}/dotfiles/wsl/.wslconfig'
+    dest: '/mnt/c/Users/{{ lookup("pipe", "echo $USERPROFILE") }}/.wslconfig'
+
+- name: Copy wsl.conf to /etc
+  copy:
+    src: '{{ ansible_env.HOME }}/dotfiles/wsl/wsl.conf'
+    dest: '/etc/wsl.conf'
+    remote_src: yes
