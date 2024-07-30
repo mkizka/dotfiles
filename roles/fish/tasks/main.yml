@@ -3,6 +3,7 @@
   copy:
     src: files/
     dest: "{{ ansible_env.HOME }}/.config/fish/"
+  notify: fisher_update
 
 - name: fishリポジトリを追加
   apt_repository:
@@ -17,14 +18,18 @@
     name: "{{ ansible_env.USER }}"
     shell: /usr/bin/fish
 
+- name: fzfの存在確認
+  stat:
+    path: '{{ ansible_env.HOME }}/.fzf'
+  register: fzf_command
+
 - name: fzfをgitからクローン
   git:
     repo: 'https://github.com/junegunn/fzf.git'
     dest: '{{ ansible_env.HOME }}/.fzf'
     depth: 1
+  when: not fzf_command.stat.exists
 
 - name: fzfをインストール
   shell: fish -c "{{ ansible_env.HOME }}/.fzf/install"
-
-- name: fisherをインストール
-  shell: fish -c "curl -sL git.io/fisher | source && fisher update"
+  when: not fzf_command.stat.exists
