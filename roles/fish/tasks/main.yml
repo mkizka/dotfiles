@@ -1,32 +1,36 @@
 ---
-- name: Add Fish PPA and install Fish shell
+- name: fishの設定ファイルを配置
+  copy:
+    src: files/
+    dest: "{{ ansible_env.HOME }}/.config/fish/"
+
+- name: fishリポジトリを追加
   apt_repository:
     repo: ppa:fish-shell/release-3
     state: present
 
-- name: Install Fish shell
+- name: fishをインストール
   apt:
     name: fish
     state: present
-  environment:
-    DEBIAN_FRONTEND: noninteractive
 
-- name: Set Fish as default shell
+- name: fishをデフォルトシェルに設定
   user:
-    name: "{{ ansible_user }}"
+    name: "{{ ansible_env.USER }}"
     shell: /usr/bin/fish
 
-- name: Install fzf
+- name: fzfをgitからクローン
   git:
     repo: 'https://github.com/junegunn/fzf.git'
     dest: '{{ ansible_env.HOME }}/.fzf'
     depth: 1
 
-- name: Run fzf install script
-  command: "{{ ansible_env.HOME }}/.fzf/install --all"
+- name: fzfをインストール
+  command: "{{ ansible_env.HOME }}/.fzf/install"
   args:
     executable: /usr/bin/fish
 
-- name: Install Fisher for Fish shell
-  command: fish -c "curl -sL git.io/fisher | source && fisher update"
-  changed_when: false
+- name: fisherをインストール
+  command: curl -sL git.io/fisher | source && fisher update
+  args:
+    executable: /usr/bin/fish

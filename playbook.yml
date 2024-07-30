@@ -4,5 +4,5 @@
   roles:
     - setup
     - dotfiles
-    # - fish
+    - fish
     # - wsl
