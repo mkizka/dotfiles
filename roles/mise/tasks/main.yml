@@ -1,5 +1,6 @@
 ---
 - name: miseに必要なパッケージをインストール
+  become: yes
   apt:
     name: unzip
 

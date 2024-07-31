@@ -6,10 +6,12 @@
   notify: fisher_update
 
 - name: fishリポジトリを追加
+  become: yes
   apt_repository:
     repo: ppa:fish-shell/release-3
 
 - name: fishをインストール
+  become: yes
   apt:
     name: fish
 
