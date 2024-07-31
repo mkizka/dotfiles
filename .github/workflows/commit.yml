@@ -1,7 +1,9 @@
 name: "ShellCheck and Depoy"
 
 on:
-  pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
   shellcheck:
