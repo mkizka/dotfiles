@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -eu
 
 # https://qiita.com/okamos/items/40966158d0271ae7198b
 has() {
