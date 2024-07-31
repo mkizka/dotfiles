@@ -1,4 +1,4 @@
-name: "ShellCheck and Depoy"
+name: "ShellCheck and Build"
 
 on:
   pull_request:
