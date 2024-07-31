@@ -16,6 +16,7 @@
     name: fish
 
 - name: fishをデフォルトシェルに設定
+  become: yes
   user:
     name: "{{ ansible_env.USER }}"
     shell: /usr/bin/fish
