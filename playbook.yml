@@ -2,8 +2,7 @@
 - hosts: localhost
   become: yes
   roles:
-    - setup
-    - dotfiles
+    - common
     - mise
     - fish
     # - wsl

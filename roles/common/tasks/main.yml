@@ -12,3 +12,8 @@
       - git
       - vim
     update_cache: yes
+
+- name: ホームディレクトリに配置するファイルをコピー
+  copy:
+    src: files/
+    dest: "{{ ansible_env.HOME }}/"
