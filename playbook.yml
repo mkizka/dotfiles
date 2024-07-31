@@ -1,8 +1,7 @@
 ---
 - hosts: localhost
-  become: yes
   roles:
     - common
     - mise
     - fish
-    # - wsl
+    - wsl

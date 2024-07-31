@@ -1,15 +1,28 @@
 ---
-- name: Install wslu if in WSL
+- name: wslかどうかを確認
+  stat:
+    path: /usr/bin/wslpath
+  register: wsllpath
+
+- name: wsluをインストール
   apt:
     name: wslu
+  when: wsllpath.stat.exists
 
-- name: Copy WSL files
-  copy:
-    src: '{{ ansible_env.HOME }}/dotfiles/wsl/.wslconfig'
-    dest: '/mnt/c/Users/{{ lookup("pipe", "echo $USERPROFILE") }}/.wslconfig'
+- name: Windows側のホームディレクトリのパスを取得
+  shell: wslpath "$(wslvar USERPROFILE)"
+  register: windows_home
 
-- name: Copy wsl.conf to /etc
+- name: Windows側のホームディレクトリのパスを表示
+  debug:
+    var: windows_home.stdout
+
+- name: .wslconfigをコピー
   copy:
-    src: '{{ ansible_env.HOME }}/dotfiles/wsl/wsl.conf'
+    src: files/.wslconfig
+    dest: "{{ windows_home.stdout }}/"
+
+- name: wsl.confをコピー
+  copy:
+    src: files/wsl.conf
     dest: '/etc/wsl.conf'
-    remote_src: yes
