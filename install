@@ -25,3 +25,5 @@ fi
 
 cd "$DOTFILES"
 ansible-playbook -i hosts playbook.yml --ask-become-pass
+
+exec fish -l
