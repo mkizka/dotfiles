@@ -1,11 +1,27 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [ ! -f /usr/bin/ansible-playbook ]; then
+# https://qiita.com/okamos/items/40966158d0271ae7198b
+has() {
+  type "$1" > /dev/null 2>&1
+}
+
+if ! has ansible-playbook; then
   sudo apt update
   sudo apt install -y software-properties-common
   sudo apt-add-repository --yes --update ppa:ansible/ansible
   sudo apt install -y ansible
 fi
 
+if ! has git; then
+  sudo apt update
+  sudo apt install -y git
+fi
+
+DOTFILES=$HOME/dotfiles
+if [ ! -d "$DOTFILES" ]; then
+  git clone https://github.com/mkizka/dotfiles "$DOTFILES"
+fi
+
+cd "$DOTFILES"
 ansible-playbook -i hosts playbook.yml --ask-become-pass
