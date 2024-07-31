@@ -25,6 +25,7 @@
         dest: "{{ windows_home.stdout }}/"
 
     - name: wsl.confをコピー
+      become: yes
       copy:
         src: files/wsl.conf
         dest: '/etc/wsl.conf'
