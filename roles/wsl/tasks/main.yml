@@ -19,6 +19,7 @@
         var: windows_home.stdout
 
     - name: .wslconfigをコピー
+      become: yes
       copy:
         src: files/.wslconfig
         dest: "{{ windows_home.stdout }}/"
