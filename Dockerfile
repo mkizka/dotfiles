@@ -9,6 +9,6 @@ WORKDIR /ansible
 ENV USER=root
 
 COPY . .
-RUN ansible-playbook -i hosts.yml playbook.yml
+RUN ansible-playbook -i hosts playbook.yml
 
 CMD ["fish"]

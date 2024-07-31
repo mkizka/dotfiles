@@ -1,28 +1,28 @@
 ---
-- name: wslかどうかを確認
+- name: WSLかどうかを確認
   stat:
     path: /usr/bin/wslpath
   register: wsllpath
 
-- name: wsluをインストール
-  apt:
-    name: wslu
-  when: wsllpath.stat.exists
+- when: wsllpath.stat.exists
+  block:
+    - name: wsluをインストール
+      apt:
+        name: wslu
 
-- name: Windows側のホームディレクトリのパスを取得
-  shell: wslpath "$(wslvar USERPROFILE)"
-  register: windows_home
+    - name: Windows側のホームディレクトリのパスを取得
+      shell: wslpath "$(wslvar USERPROFILE)"
+      register: windows_home
 
-- name: Windows側のホームディレクトリのパスを表示
-  debug:
-    var: windows_home.stdout
+    - debug:
+        var: windows_home.stdout
 
-- name: .wslconfigをコピー
-  copy:
-    src: files/.wslconfig
-    dest: "{{ windows_home.stdout }}/"
+    - name: .wslconfigをコピー
+      copy:
+        src: files/.wslconfig
+        dest: "{{ windows_home.stdout }}/"
 
-- name: wsl.confをコピー
-  copy:
-    src: files/wsl.conf
-    dest: '/etc/wsl.conf'
+    - name: wsl.confをコピー
+      copy:
+        src: files/wsl.conf
+        dest: '/etc/wsl.conf'
