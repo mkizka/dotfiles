@@ -23,13 +23,13 @@
 
 - name: fzfの存在確認
   stat:
-    path: '{{ ansible_user_dir }}/.fzf'
+    path: "{{ ansible_user_dir }}/.fzf"
   register: fzf_command
 
 - name: fzfをgitからクローン
   git:
-    repo: 'https://github.com/junegunn/fzf.git'
-    dest: '{{ ansible_user_dir }}/.fzf'
+    repo: https://github.com/junegunn/fzf.git
+    dest: "{{ ansible_user_dir }}/.fzf"
     depth: 1
   when: not fzf_command.stat.exists
 

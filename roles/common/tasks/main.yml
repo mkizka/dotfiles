@@ -3,8 +3,8 @@
   become: true
   replace:
     path: /etc/apt/sources.list
-    regexp: 'http://archive.ubuntu.com'
-    replace: 'http://jp.archive.ubuntu.com'
+    regexp: http://archive.ubuntu.com
+    replace: http://jp.archive.ubuntu.com
     backup: true
 
 - name: よく使うパッケージをインストール

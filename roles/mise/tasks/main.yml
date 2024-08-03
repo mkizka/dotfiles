@@ -6,7 +6,7 @@
 
 - name: miseコマンド確認
   stat:
-    path: '{{ ansible_user_dir }}/.local/bin/mise'
+    path: "{{ ansible_user_dir }}/.local/bin/mise"
   register: mise_command
 
 - name: miseのインストール

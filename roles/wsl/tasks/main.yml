@@ -29,4 +29,4 @@
       become: true
       copy:
         src: files/wsl.conf
-        dest: '/etc/wsl.conf'
+        dest: /etc/wsl.conf
