@@ -12,6 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ludeeus/action-shellcheck@master
+      - uses: ansible/ansible-lint@main
   deploy:
     name: "Deploy"
     runs-on: ubuntu-latest
