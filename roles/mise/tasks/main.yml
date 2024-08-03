@@ -1,6 +1,6 @@
 ---
 - name: miseに必要なパッケージをインストール
-  become: yes
+  become: true
   apt:
     name: unzip
 
@@ -12,6 +12,7 @@
 - name: miseのインストール
   shell: curl https://mise.jdx.dev/install.sh | sh
   when: not mise_command.stat.exists
+  changed_when: false
 
 - name: miseの設定ファイルを配置
   copy:

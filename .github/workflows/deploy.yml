@@ -1,4 +1,4 @@
-name: "ShellCheck and Depoy"
+name: deploy
 
 on:
   push:
@@ -6,15 +6,15 @@ on:
       - main
 
 jobs:
-  shellcheck:
-    name: "ShellCheck"
+  lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: ludeeus/action-shellcheck@master
+      - uses: ansible/ansible-lint@main
   deploy:
-    name: "Deploy"
     runs-on: ubuntu-latest
+    needs: [lint]
     permissions:
       packages: write
     env:
