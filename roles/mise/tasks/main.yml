@@ -10,7 +10,7 @@
   register: mise_command
 
 - name: miseのインストール
-  command: curl https://mise.jdx.dev/install.sh | sh
+  shell: curl https://mise.jdx.dev/install.sh | sh
   when: not mise_command.stat.exists
   changed_when: false
 
