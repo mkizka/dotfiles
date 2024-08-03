@@ -7,7 +7,7 @@
 - when: wsllpath.stat.exists
   block:
     - name: wsluをインストール
-      become: yes
+      become: true
       apt:
         name: wslu
 
@@ -20,13 +20,13 @@
         var: windows_home.stdout
 
     - name: .wslconfigをコピー
-      become: yes
+      become: true
       copy:
         src: files/.wslconfig
         dest: "{{ windows_home.stdout }}/"
 
     - name: wsl.confをコピー
-      become: yes
+      become: true
       copy:
         src: files/wsl.conf
         dest: '/etc/wsl.conf'

@@ -1,3 +1,4 @@
 ---
 - name: mise_install
   command: '{{ ansible_user_dir }}/.local/bin/mise install -y'
+  changed_when: false

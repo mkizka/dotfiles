@@ -1,19 +1,19 @@
 ---
 - name: sources.listの向き先を日本に変更
-  become: yes
+  become: true
   replace:
     path: /etc/apt/sources.list
     regexp: 'http://archive.ubuntu.com'
     replace: 'http://jp.archive.ubuntu.com'
-    backup: yes
+    backup: true
 
 - name: よく使うパッケージをインストール
-  become: yes
+  become: true
   apt:
     name:
       - git
       - vim
-    update_cache: yes
+    update_cache: true
 
 - name: ホームディレクトリに配置するファイルをコピー
   copy:

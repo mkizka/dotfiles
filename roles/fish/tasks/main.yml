@@ -6,17 +6,17 @@
   notify: fisher_update
 
 - name: fishリポジトリを追加
-  become: yes
+  become: true
   apt_repository:
     repo: ppa:fish-shell/release-3
 
 - name: fishをインストール
-  become: yes
+  become: true
   apt:
     name: fish
 
 - name: fishをデフォルトシェルに設定
-  become: yes
+  become: true
   user:
     name: "{{ ansible_user_id }}"
     shell: /usr/bin/fish
@@ -34,5 +34,6 @@
   when: not fzf_command.stat.exists
 
 - name: fzfをインストール
-  shell: fish -c "{{ ansible_user_dir }}/.fzf/install"
+  command: fish -c "{{ ansible_user_dir }}/.fzf/install"
   when: not fzf_command.stat.exists
+  changed_when: false
