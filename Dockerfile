@@ -6,7 +6,9 @@ RUN apt update \
 RUN apt install -y ansible curl sudo
 
 WORKDIR /ansible
-ENV USER=root
+RUN useradd --create-home --groups sudo dotfile \
+  && echo "dotfile ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+USER dotfile 
 
 COPY . .
 RUN ansible-playbook -i localhost, -c local playbook.yml

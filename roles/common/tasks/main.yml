@@ -1,5 +1,6 @@
 ---
 - name: sources.listの向き先を日本に変更
+  become: yes
   replace:
     path: /etc/apt/sources.list
     regexp: 'http://archive.ubuntu.com'
@@ -17,4 +18,4 @@
 - name: ホームディレクトリに配置するファイルをコピー
   copy:
     src: files/
-    dest: "{{ ansible_env.HOME }}/"
+    dest: "{{ ansible_user_dir }}/"

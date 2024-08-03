@@ -6,7 +6,7 @@
 
 - name: miseコマンド確認
   stat:
-    path: '{{ ansible_env.HOME }}/.local/bin/mise'
+    path: '{{ ansible_user_dir }}/.local/bin/mise'
   register: mise_command
 
 - name: miseのインストール
@@ -16,5 +16,5 @@
 - name: miseの設定ファイルを配置
   copy:
     src: files/
-    dest: "{{ ansible_env.HOME }}/.config/mise/"
+    dest: "{{ ansible_user_dir }}/.config/mise/"
   notify: mise_install

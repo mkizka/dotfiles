@@ -2,7 +2,7 @@
 - name: fishの設定ファイルを配置
   copy:
     src: files/
-    dest: "{{ ansible_env.HOME }}/.config/fish/"
+    dest: "{{ ansible_user_dir }}/.config/fish/"
   notify: fisher_update
 
 - name: fishリポジトリを追加
@@ -18,21 +18,21 @@
 - name: fishをデフォルトシェルに設定
   become: yes
   user:
-    name: "{{ ansible_env.USER }}"
+    name: "{{ ansible_user_id }}"
     shell: /usr/bin/fish
 
 - name: fzfの存在確認
   stat:
-    path: '{{ ansible_env.HOME }}/.fzf'
+    path: '{{ ansible_user_dir }}/.fzf'
   register: fzf_command
 
 - name: fzfをgitからクローン
   git:
     repo: 'https://github.com/junegunn/fzf.git'
-    dest: '{{ ansible_env.HOME }}/.fzf'
+    dest: '{{ ansible_user_dir }}/.fzf'
     depth: 1
   when: not fzf_command.stat.exists
 
 - name: fzfをインストール
-  shell: fish -c "{{ ansible_env.HOME }}/.fzf/install"
+  shell: fish -c "{{ ansible_user_dir }}/.fzf/install"
   when: not fzf_command.stat.exists
