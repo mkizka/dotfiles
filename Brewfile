@@ -1,5 +1,6 @@
 tap "homebrew/bundle"
 brew "ansible"
+brew "ansible-lint"
 brew "fish"
 brew "fisher"
 brew "fzf"
