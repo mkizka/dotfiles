@@ -1,19 +1,4 @@
 ---
-- name: miseに必要なパッケージをインストール
-  become: true
-  apt:
-    name: unzip
-
-- name: miseコマンド確認
-  stat:
-    path: "{{ ansible_user_dir }}/.local/bin/mise"
-  register: mise_command
-
-- name: miseのインストール
-  shell: curl https://mise.jdx.dev/install.sh | sh
-  when: not mise_command.stat.exists
-  changed_when: false
-
 - name: miseの設定ファイルを配置
   copy:
     src: files/

@@ -12,4 +12,4 @@ WORKDIR /home/docker
 COPY . ./dotfiles
 RUN ./dotfiles/install
 
-CMD ["fish"]
+CMD ["/home/linuxbrew/.linuxbrew/bin/fish"]

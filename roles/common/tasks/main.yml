@@ -7,14 +7,6 @@
     replace: http://jp.archive.ubuntu.com
     backup: true
 
-- name: よく使うパッケージをインストール
-  become: true
-  apt:
-    name:
-      - git
-      - vim
-    update_cache: true
-
 - name: ホームディレクトリに配置するファイルをコピー
   copy:
     src: files/

@@ -2,5 +2,5 @@
 node = "lts"
 ghq = "latest"
 shellcheck = "latest"
-python = "3.12.4"
+python = "latest"
 

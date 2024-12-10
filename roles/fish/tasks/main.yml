@@ -1,39 +1,17 @@
 ---
-- name: fishの設定ファイルを配置
-  copy:
-    src: files/
-    dest: "{{ ansible_user_dir }}/.config/fish/"
-  notify: fisher_update
-
-- name: fishリポジトリを追加
-  become: true
-  apt_repository:
-    repo: ppa:fish-shell/release-3
-
-- name: fishをインストール
-  become: true
-  apt:
-    name: fish
+- name: fishのパスを取得
+  command: which fish
+  register: fish_path
+  changed_when: false
 
 - name: fishをデフォルトシェルに設定
   become: true
   user:
     name: "{{ ansible_user_id }}"
-    shell: /usr/bin/fish
+    shell: "{{ fish_path.stdout }}"
 
-- name: fzfの存在確認
-  stat:
-    path: "{{ ansible_user_dir }}/.fzf"
-  register: fzf_command
-
-- name: fzfをgitからクローン
-  git:
-    repo: https://github.com/junegunn/fzf.git
-    dest: "{{ ansible_user_dir }}/.fzf"
-    depth: 1
-  when: not fzf_command.stat.exists
-
-- name: fzfをインストール
-  command: fish -c "{{ ansible_user_dir }}/.fzf/install"
-  when: not fzf_command.stat.exists
-  changed_when: false
+- name: fishの設定ファイルを配置
+  copy:
+    src: files/
+    dest: "{{ ansible_user_dir }}/.config/fish/"
+  notify: fisher_update

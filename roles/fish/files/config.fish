@@ -6,5 +6,5 @@ alias px='pnpm -s dlx'
 alias gg='ghq get --look'
 alias gd='cd (ghq list -p | fzf)'
 
-# mise
-$HOME/.local/bin/mise activate fish | source
+# homebrew
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
