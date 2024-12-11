@@ -8,8 +8,7 @@ RUN useradd --create-home --groups sudo docker \
 USER docker
 WORKDIR /home/docker
 
-# ファイル変更時に再実行されるように、install内のgit cloneではなくCOPYを使う
-COPY . ./dotfiles
-RUN ./dotfiles/install
+COPY --chown=docker:sudo home ./.local/share/chezmoi
+RUN sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply
 
 CMD ["/home/linuxbrew/.linuxbrew/bin/fish"]

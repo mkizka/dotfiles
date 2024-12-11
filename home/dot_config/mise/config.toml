@@ -1,6 +1,3 @@
 [tools]
 node = "lts"
-ghq = "latest"
-shellcheck = "latest"
 python = "latest"
-

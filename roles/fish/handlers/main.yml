@@ -1,3 +1,0 @@
-- name: fisher_update
-  command: fish -c "fisher update"
-  changed_when: false

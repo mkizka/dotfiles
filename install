@@ -1,28 +1,4 @@
 #!/usr/bin/env bash
-set -eu
+set -euo pipefail
 
-# https://qiita.com/okamos/items/40966158d0271ae7198b
-has() {
-  type "$1" > /dev/null 2>&1
-}
-
-if ! has git; then
-  sudo apt update
-  sudo apt install -y git gcc
-fi
-
-if ! has brew; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
-
-DOTFILES=$HOME/dotfiles
-if [ ! -d "$DOTFILES" ]; then
-  git clone https://github.com/mkizka/dotfiles "$DOTFILES"
-fi
-
-cd "$DOTFILES"
-brew bundle install --file Brewfile
-ansible-playbook -i localhost, -c local playbook.yml --ask-become-pass
-
-exec fish -l
+sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply mkizka

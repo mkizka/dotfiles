@@ -1,4 +1,0 @@
----
-- name: mise_install
-  command: mise install -y
-  changed_when: false

@@ -1,9 +1,0 @@
-skip_list:
-  - name[play]
-  - name[casing]
-  - name[missing]
-  - fqcn[action-core]
-  - latest[git]
-  - command-instead-of-module
-  - risky-shell-pipe
-  - risky-file-permissions
