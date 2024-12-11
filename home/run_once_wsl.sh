@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# https://qiita.com/okamos/items/40966158d0271ae7198b
 has() {
   type "$1" > /dev/null 2>&1
 }
