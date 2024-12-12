@@ -8,7 +8,7 @@ RUN useradd --create-home --groups sudo docker \
 USER docker
 WORKDIR /home/docker
 
-COPY --chown=docker:sudo home ./.local/share/chezmoi
+COPY --chown=docker:docker . ./.local/share/chezmoi
 RUN sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply
 
 CMD ["/home/linuxbrew/.linuxbrew/bin/fish"]

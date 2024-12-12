@@ -1,4 +1,6 @@
 tap "homebrew/bundle"
+brew "ansible"
+brew "ansible-lint"
 brew "chezmoi"
 brew "fish"
 brew "fisher"

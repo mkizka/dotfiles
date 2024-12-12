@@ -13,3 +13,8 @@ fi
 if ! has brew; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+brew bundle --global
+
+ansible-playbook -i localhost, -c local {{ .chezmoi.workingTree }}/playbook.yml --ask-become-pass
