@@ -9,24 +9,21 @@
         replace: http://jp.archive.ubuntu.com
         backup: true
 
-    # fish
-    - name: fishのパスを取得
-      ansible.builtin.command: which fish
-      register: fish_path
+    # zsh
+    - name: zshのパスを取得
+      ansible.builtin.command: which zsh
+      register: zsh_path
       changed_when: false
 
-    - name: fishをデフォルトシェルに設定
+    - name: zshをデフォルトシェルに設定
       become: true
       ansible.builtin.user:
         name: "{{ ansible_user_id }}"
-        shell: "{{ fish_path.stdout }}"
-
-    - name: fisherプラグインのアップデート
-      ansible.builtin.command: fish -c "fisher update"
-      changed_when: false
+        shell: "{{ zsh_path.stdout }}"
 
     # mise
-    - ansible.builtin.command: mise install
+    - name: miseで管理しているツールをインストール
+      ansible.builtin.command: mise install
       changed_when: false
 
     # wsl

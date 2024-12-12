@@ -11,4 +11,4 @@ WORKDIR /home/docker
 COPY --chown=docker:docker . ./.local/share/chezmoi
 RUN sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply
 
-CMD ["/home/linuxbrew/.linuxbrew/bin/fish"]
+CMD ["/home/linuxbrew/.linuxbrew/bin/zsh"]

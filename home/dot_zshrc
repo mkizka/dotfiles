@@ -1,0 +1,35 @@
+# completion
+zstyle :compinstall filename ~/.zshrc
+autoload -Uz compinit && compinit
+
+# history
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=1000
+setopt incappendhistory
+
+# alias
+alias px='pnpm -s dlx'
+alias gg='ghq get --look'
+alias gd='cd $(ghq list -p | fzf)'
+alias cz=chezmoi
+
+## fzf
+function fzf-select-history() {
+    BUFFER=$(history -n -r 1 | fzf --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+zle -N fzf-select-history
+bindkey '^r' fzf-select-history
+
+# cli
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(starship init zsh)"
+eval "$(mise activate zsh)"
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# zsh-syntax-highlighting
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[arg0]='fg=blue'
