@@ -47,11 +47,11 @@
         - ansible.builtin.debug:
             var: windows_home.stdout
 
-        - name: .wslconfigのシンボリック作成
-          ansible.builtin.file:
+        # .wslconfigはWSLが起動するタイミングで読み込まれるためシンボリックリンクが使えない
+        - name: .wslconfigをコピー
+          ansible.builtin.copy:
             src: "{{ ansible_user_dir }}/.config/wsl/.wslconfig"
             dest: "{{ windows_home.stdout }}/.wslconfig"
-            state: link
 
         - name: wsl.confのシンボリック作成
           become: true
