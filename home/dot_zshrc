@@ -23,6 +23,11 @@ function fzf-select-history() {
 zle -N fzf-select-history
 bindkey '^r' fzf-select-history
 
+# bindkey
+bindkey '^[[1;5C' forward-word # Ctrl-→
+bindkey '^[[1;5D' backward-word # Ctrl-←
+bindkey '^H' backward-kill-word  # Ctrl-Backspace
+
 # cli
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(starship init zsh)"
