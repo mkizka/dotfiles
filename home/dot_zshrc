@@ -28,9 +28,6 @@ bindkey '^[[1;5C' forward-word # Ctrl-→
 bindkey '^[[1;5D' backward-word # Ctrl-←
 bindkey '^H' backward-kill-word  # Ctrl-Backspace
 
-# path
-path+=('/mnt/c/Users/mkizka/AppData/Local/Programs/VSCode/bin');
-
 # envs
 BROWSER=$(which wslview)
 
