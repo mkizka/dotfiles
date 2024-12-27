@@ -4,9 +4,9 @@
     - name: sources.listの向き先を日本に変更
       become: true
       ansible.builtin.replace:
-        path: /etc/apt/sources.list
-        regexp: http://archive.ubuntu.com
-        replace: http://jp.archive.ubuntu.com
+        path: /etc/apt/sources.list.d/ubuntu.sources
+        regexp: http:\/\/archive\.ubuntu\.com\/ubuntu\/
+        replace: https://ftp.udx.icscoe.jp/Linux/ubuntu/
         backup: true
 
     # zsh
@@ -38,6 +38,7 @@
           become: true
           ansible.builtin.apt:
             name: wslu
+            update_cache: true
 
         - name: Windows側のホームディレクトリのパスを取得
           ansible.builtin.shell: wslpath "$(wslvar USERPROFILE)"
