@@ -9,6 +9,12 @@
         replace: https://ftp.udx.icscoe.jp/Linux/ubuntu/
         backup: true
 
+    - name: build-essentialをインストール
+      become: true
+      ansible.builtin.apt:
+        name: build-essential
+        update_cache: true
+
     # zsh
     - name: zshのパスを取得
       ansible.builtin.command: which zsh
@@ -38,7 +44,6 @@
           become: true
           ansible.builtin.apt:
             name: wslu
-            update_cache: true
 
         - name: Windows側のホームディレクトリのパスを取得
           ansible.builtin.shell: wslpath "$(wslvar USERPROFILE)"
