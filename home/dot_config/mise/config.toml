@@ -1,4 +1,5 @@
 [tools]
+deno = "latest"
 go = "latest"
 java = "temurin-17"
 node = "lts"
