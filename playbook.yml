@@ -1,6 +1,13 @@
 ---
 - hosts: localhost
   tasks:
+    - name: resolv.conf更新
+      become: true
+      ansible.builtin.copy:
+        dest: /etc/resolv.conf
+        content: |
+          nameserver 8.8.8.8
+
     - name: sources.listの向き先を日本に変更
       become: true
       ansible.builtin.replace:
