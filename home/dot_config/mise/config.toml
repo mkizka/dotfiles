@@ -5,3 +5,6 @@ java = "temurin-17"
 node = "lts"
 python = "latest"
 rust = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["node"]
