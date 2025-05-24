@@ -2,3 +2,6 @@
 processors=12
 memory=16GB
 swap=32GB
+
+# WSL2内のサーバーに外部端末からアクセスできるように
+networkingMode=mirrored
