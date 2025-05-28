@@ -1,18 +1,12 @@
 brew "unzip"
-brew "ansible"
-brew "ansible-lint"
-brew "aria2"
 brew "awscli"
 brew "chezmoi"
 brew "fzf"
-brew "gh"
 brew "ghq"
 brew "git"
 brew "htop"
 brew "jq"
 brew "mise"
-brew "postgresql@16", link: true
-brew "railway"
 brew "shellcheck"
 brew "starship"
 brew "tree"
@@ -22,3 +16,12 @@ brew "wget"
 brew "zsh"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
+
+{{ if eq .chezmoi.os "linux" }}
+brew "ansible"
+brew "ansible-lint"
+brew "aria2"
+brew "gh"
+brew "postgresql@16", link: true
+brew "railway"
+{{ end }}

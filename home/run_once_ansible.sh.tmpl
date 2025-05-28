@@ -14,7 +14,13 @@ if ! has brew; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
+{{ if eq .chezmoi.os "linux" }}
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{ else if eq .chezmoi.os "darwin" }}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{ end }}
 brew bundle --global
 
+{{ if eq .chezmoi.os "linux" }}
 ansible-playbook -i localhost, -c local {{ .chezmoi.workingTree }}/playbook.yml --ask-become-pass
+{{ end }}
