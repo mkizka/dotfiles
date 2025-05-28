@@ -3,11 +3,9 @@
     excludesfile = ~/.gitignore_global
 [init]
     defaultBranch = main
-{{ if eq .chezmoi.os "linux" }}
 [user]
     name = mkizka
     email = g.mkizka@gmail.com
-{{ end }}
 [alias]
     prune-branches = !git fetch --prune && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D
 [credential]
