@@ -2,3 +2,9 @@
     exclude = ["scripts"]
 [git]
     autoCommit = true
+[data]
+{{ if eq .chezmoi.os "linux" }}
+    homebrewPrefix = "/home/linuxbrew/.linuxbrew"
+{{ else if eq .chezmoi.os "darwin" }}
+    homebrewPrefix = "/opt/homebrew"
+{{ end }}

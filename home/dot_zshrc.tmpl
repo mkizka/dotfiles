@@ -32,7 +32,7 @@ bindkey '^H' backward-kill-word  # Ctrl-Backspace
 BROWSER=$(which wslview)
 
 # cli
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$({{ .homebrewPrefix }}/bin/brew shellenv)"
 eval "$(starship init zsh)"
 eval "$(mise activate zsh)"
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
