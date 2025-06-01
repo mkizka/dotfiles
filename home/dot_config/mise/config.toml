@@ -3,6 +3,8 @@ deno = "latest"
 go = "latest"
 java = "temurin-17"
 node = "lts"
+"npm:@anthropic-ai/claude-code" = "latest"
+"npm:ccusage" = "latest"
 python = "latest"
 rust = "latest"
 
