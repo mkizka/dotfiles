@@ -29,7 +29,7 @@
 
     # mise
     - name: miseで管理しているツールをインストール
-      ansible.builtin.command: mise install
+      ansible.builtin.command: mise install --jobs 1
       changed_when: false
 
     # wsl
