@@ -5,6 +5,3 @@ swap=32GB
 
 # WSL2内のサーバーに外部端末からアクセスできるように
 networkingMode=mirrored
-
-# 名前解決エラー対策
-dnsTunneling=true
