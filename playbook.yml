@@ -1,16 +1,6 @@
 ---
 - hosts: localhost
   tasks:
-    - name: resolv.conf更新
-      become: true
-      ansible.builtin.copy:
-        dest: /etc/resolv.conf
-        content: |
-          # github.comへの接続が失敗する問題への対策
-          options single-request-reopen
-          nameserver 1.1.1.1
-          nameserver 1.0.0.1
-
     - name: sources.listの向き先を日本に変更
       become: true
       ansible.builtin.replace:
@@ -50,6 +40,22 @@
 
     - when: wslpath.stat.exists
       block:
+        # WSL環境ではIPV6の通信がタイムアウトしがちなので無効化する
+        - name: sysctl.conf更新
+          become: true
+          ansible.builtin.copy:
+            dest: /etc/sysctl.conf
+            # https://qiita.com/k_adachi_01/items/ca63a2ce5f7952bf51e8
+            content: |
+              net.ipv6.conf.all.disable_ipv6=1
+              net.ipv6.conf.default.disable_ipv6=1
+              net.ipv6.conf.lo.disable_ipv6=1
+
+        - name: sysctl設定を適用
+          become: true
+          ansible.builtin.command: sysctl -p
+          changed_when: false
+
         - name: wsluをインストール
           become: true
           ansible.builtin.apt:
