@@ -40,25 +40,6 @@
 
     - when: wslpath.stat.exists
       block:
-        # github.comへの接続が失敗する問題への対策
-        - name: resolv.conf更新
-          become: true
-          ansible.builtin.copy:
-            dest: /etc/resolv.conf
-            content: |
-              nameserver 1.1.1.1
-
-        # Claude Codeがタイムアウトする問題への対策
-        # https://qiita.com/k_adachi_01/items/ca63a2ce5f7952bf51e8
-        - name: sysctl.conf更新
-          become: true
-          ansible.builtin.copy:
-            dest: /etc/sysctl.conf
-            content: |
-              net.ipv6.conf.all.disable_ipv6=1
-              net.ipv6.conf.default.disable_ipv6=1
-              net.ipv6.conf.lo.disable_ipv6=1
-
         - name: sysctl設定を適用
           become: true
           ansible.builtin.command: sysctl -p
