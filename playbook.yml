@@ -46,9 +46,7 @@
           ansible.builtin.copy:
             dest: /etc/resolv.conf
             content: |
-              options single-request-reopen
               nameserver 1.1.1.1
-              nameserver 1.0.0.1
 
         # Claude Codeがタイムアウトする問題への対策
         # https://qiita.com/k_adachi_01/items/ca63a2ce5f7952bf51e8
