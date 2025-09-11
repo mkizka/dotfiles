@@ -1,6 +1,5 @@
 [core]
     autocrlf = false
-    excludesfile = ~/.gitignore_global
 [init]
     defaultBranch = main
 [user]
