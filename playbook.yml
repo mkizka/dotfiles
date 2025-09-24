@@ -40,6 +40,12 @@
 
     - when: wslpath.stat.exists
       block:
+        - name: wsluのPPAリポジトリを追加
+          become: true
+          ansible.builtin.apt_repository:
+            repo: ppa:wslutilities/wslu
+            state: present
+
         - name: wsluをインストール
           become: true
           ansible.builtin.apt:
