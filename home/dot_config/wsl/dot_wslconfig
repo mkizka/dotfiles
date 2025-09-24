@@ -5,3 +5,6 @@ swap=32GB
 
 # WSL2内のサーバーに外部端末からアクセスできるように
 networkingMode=mirrored
+
+# github.comなどの名前解決に失敗する問題への対策
+kernelCommandLine=ipv6.disable=1
