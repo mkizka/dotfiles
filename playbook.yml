@@ -40,11 +40,6 @@
 
     - when: wslpath.stat.exists
       block:
-        - name: sysctl設定を適用
-          become: true
-          ansible.builtin.command: sysctl -p
-          changed_when: false
-
         - name: wsluをインストール
           become: true
           ansible.builtin.apt:
