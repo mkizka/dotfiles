@@ -5,6 +5,6 @@
   "statusLine": {
     "type": "command",
     "command": "ccusage statusline"
-  },
-  "model": "opus"
+  }
 }
+
