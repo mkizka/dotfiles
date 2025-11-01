@@ -1,7 +1,6 @@
 [tools]
 java = "temurin-17"
 node = "lts"
-"npm:@anthropic-ai/claude-code" = "latest"
 "npm:ccusage" = "latest"
 uv = "latest"
 
