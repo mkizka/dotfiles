@@ -1,4 +1,7 @@
 .idea/
 repomix-output.txt
 memo.md
+
+# claude
 **/.claude/settings.local.json
+.serena/
