@@ -1,7 +1,9 @@
 [tools]
+go = "latest"
 java = "temurin-17"
-node = "lts"
+node = "24"
 "npm:ccusage" = "latest"
+pnpm = "latest"
 uv = "latest"
 
 [settings]

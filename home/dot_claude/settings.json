@@ -2,8 +2,14 @@
   "env": {
     "API_TIMEOUT_MS": "600000"
   },
+  "model": "opusplan",
   "statusLine": {
     "type": "command",
     "command": "ccusage statusline"
+  },
+  "enabledPlugins": {
+    "example-skills@anthropic-agent-skills": true,
+    "frontend-design@claude-plugins-official": true,
+    "serena@claude-plugins-official": true
   }
 }
