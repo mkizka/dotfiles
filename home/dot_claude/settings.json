@@ -1,8 +1,8 @@
 {
   "env": {
-    "API_TIMEOUT_MS": "600000"
+    "API_TIMEOUT_MS": "600000",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
-  "model": "opusplan",
   "statusLine": {
     "type": "command",
     "command": "ccusage statusline"
