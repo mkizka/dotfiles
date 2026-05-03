@@ -2,7 +2,6 @@
 go = "latest"
 java = "temurin-17"
 node = "24"
-"npm:ccusage" = "latest"
 pnpm = "latest"
 uv = "latest"
 
