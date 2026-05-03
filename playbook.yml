@@ -24,7 +24,7 @@
     - name: zshをデフォルトシェルに設定
       become: true
       ansible.builtin.user:
-        name: "{{ ansible_user_id }}"
+        name: "{{ ansible_facts['user_id'] }}"
         shell: "{{ zsh_path.stdout }}"
 
     # mise
@@ -51,13 +51,13 @@
         # .wslconfigはWSLが起動するタイミングで読み込まれるためシンボリックリンクが使えない
         - name: .wslconfigをコピー
           ansible.builtin.copy:
-            src: "{{ ansible_user_dir }}/.config/wsl/.wslconfig"
+            src: "{{ ansible_facts['user_dir'] }}/.config/wsl/.wslconfig"
             dest: "{{ windows_home.stdout }}/.wslconfig"
 
         - name: wsl.confのシンボリック作成
           become: true
           ansible.builtin.file:
-            src: "{{ ansible_user_dir }}/.config/wsl/wsl.conf"
+            src: "{{ ansible_facts['user_dir'] }}/.config/wsl/wsl.conf"
             dest: /etc/wsl.conf
             state: link
             force: true
