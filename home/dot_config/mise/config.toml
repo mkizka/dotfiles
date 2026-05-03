@@ -1,9 +1,6 @@
 [tools]
-go = "latest"
-java = "temurin-17"
-node = "24"
-pnpm = "latest"
-uv = "latest"
+node = "24.12.0"
+pnpm = "11.0.4"
 
 [settings]
 idiomatic_version_file_enable_tools = ["node"]
