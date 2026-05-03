@@ -13,6 +13,7 @@ brew "goat"
 brew "htop"
 brew "jq"
 brew "mise"
+brew "pinact"
 brew "postgresql@16", link: true
 brew "railway"
 brew "ripgrep"
