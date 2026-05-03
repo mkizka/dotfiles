@@ -40,19 +40,8 @@
 
     - when: wslpath.stat.exists
       block:
-        - name: wsluのPPAリポジトリを追加
-          become: true
-          ansible.builtin.apt_repository:
-            repo: ppa:wslutilities/wslu
-            state: present
-
-        - name: wsluをインストール
-          become: true
-          ansible.builtin.apt:
-            name: wslu
-
         - name: Windows側のホームディレクトリのパスを取得
-          ansible.builtin.shell: wslpath "$(wslvar USERPROFILE)"
+          ansible.builtin.shell: wslpath "$(/mnt/c/Windows/System32/cmd.exe /c 'echo %USERPROFILE%' 2>/dev/null | tr -d '\r')"
           register: windows_home
           changed_when: false
 
