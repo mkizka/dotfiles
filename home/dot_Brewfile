@@ -14,7 +14,7 @@ brew "htop"
 brew "jq"
 brew "mise"
 brew "pinact"
-brew "postgresql@16", link: true
+brew "libpq", link: true
 brew "railway"
 brew "ripgrep"
 brew "shellcheck"
