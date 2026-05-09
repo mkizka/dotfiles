@@ -9,7 +9,12 @@ brew bundle --global
 {{ if eq .chezmoi.os "linux" -}}
 sudo -n true 2>/dev/null || sudo -v
 
-zsh_path="$(command -v zsh)"
+zsh_path="$(brew --prefix)/bin/zsh"
+
+if ! grep -qxF "$zsh_path" /etc/shells; then
+  echo "$zsh_path" | sudo tee -a /etc/shells > /dev/null
+fi
+
 user="$(id -un)"
 current_shell="$(getent passwd "$user" | cut -d: -f7)"
 if [ "$current_shell" != "$zsh_path" ]; then

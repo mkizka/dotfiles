@@ -5,5 +5,5 @@ set -euo pipefail
 # mise: {{ include "dot_config/mise/config.toml" | sha256sum }}
 
 eval "$({{ .homebrewPrefix }}/bin/brew shellenv)"
-mise install --jobs 1
+mise install
 {{- end }}
