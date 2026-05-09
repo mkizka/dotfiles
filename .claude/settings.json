@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./scripts/update.sh)",
+      "Bash(./scripts/lint.sh)",
+      "Bash(docker build *)",
+      "Bash(docker run *)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
