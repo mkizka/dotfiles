@@ -1,0 +1,15 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+# wsl.conf:   {{ include "dot_config/wsl/wsl.conf" | sha256sum }}
+# .wslconfig: {{ include "dot_config/wsl/dot_wslconfig" | sha256sum }}
+
+if [ -x /usr/bin/wslpath ]; then
+  windows_home="$(wslpath "$(/mnt/c/Windows/System32/cmd.exe /c 'echo %USERPROFILE%' 2>/dev/null | tr -d '\r')")"
+  echo "windows_home=$windows_home"
+  cp -f "$HOME/.config/wsl/.wslconfig" "$windows_home/.wslconfig"
+  sudo -n true 2>/dev/null || sudo -v
+  sudo ln -sfn "$HOME/.config/wsl/wsl.conf" /etc/wsl.conf
+fi
+{{- end }}

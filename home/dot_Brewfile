@@ -1,7 +1,5 @@
 brew "unzip"
 brew "tree"
-brew "ansible"
-brew "ansible-lint"
 brew "aria2"
 brew "awscli"
 brew "chezmoi"

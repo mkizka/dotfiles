@@ -1,0 +1,9 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+# mise: {{ include "dot_config/mise/config.toml" | sha256sum }}
+
+eval "$({{ .homebrewPrefix }}/bin/brew shellenv)"
+mise install --jobs 1
+{{- end }}
