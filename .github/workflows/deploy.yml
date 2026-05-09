@@ -13,7 +13,10 @@ jobs:
       - name: Install chezmoi
         run: sh -c "$(curl -fsLS get.chezmoi.io)" -- -b /usr/local/bin
       - name: Initialize chezmoi
-        run: chezmoi init --source "$PWD"
+        run: |
+          mkdir -p "$HOME/.local/share"
+          ln -s "$PWD" "$HOME/.local/share/chezmoi"
+          chezmoi init
       - name: Run lint
         run: ./scripts/lint.sh
   deploy:
