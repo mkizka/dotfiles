@@ -3,6 +3,7 @@ set -euo pipefail
 
 # wsl.conf:   {{ include "dot_config/wsl/wsl.conf" | sha256sum }}
 # .wslconfig: {{ include "dot_config/wsl/dot_wslconfig" | sha256sum }}
+echo "==> run_onchange_after_wsl.sh"
 
 if [ -x /usr/bin/wslpath ]; then
   windows_home="$(wslpath "$(/mnt/c/Windows/System32/cmd.exe /c 'echo %USERPROFILE%' 2>/dev/null | tr -d '\r')")"

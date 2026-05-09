@@ -2,6 +2,7 @@
 set -euo pipefail
 
 # mise: {{ include "dot_config/mise/config.toml" | sha256sum }}
+echo "==> run_onchange_after_mise.sh"
 
 eval "$({{ .homebrewPrefix }}/bin/brew shellenv)"
 mise install
