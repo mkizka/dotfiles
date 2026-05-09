@@ -10,6 +10,11 @@ jobs:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
       - name: Install chezmoi
         run: sh -c "$(curl -fsLS get.chezmoi.io)" -- -b /usr/local/bin
+      - name: Initialize chezmoi
+        run: |
+          mkdir -p "$HOME/.local/share"
+          ln -s "$PWD" "$HOME/.local/share/chezmoi"
+          chezmoi init
       - name: Run lint
         run: ./scripts/lint.sh
   build:
