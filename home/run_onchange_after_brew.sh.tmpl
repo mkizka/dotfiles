@@ -6,7 +6,6 @@ set -euo pipefail
 eval "$({{ .homebrewPrefix }}/bin/brew shellenv)"
 brew bundle --global
 
-{{ if eq .chezmoi.os "linux" -}}
 sudo -n true 2>/dev/null || sudo -v
 
 zsh_path="$(brew --prefix)/bin/zsh"
@@ -20,4 +19,3 @@ current_shell="$(getent passwd "$user" | cut -d: -f7)"
 if [ "$current_shell" != "$zsh_path" ]; then
   sudo chsh -s "$zsh_path" "$user"
 fi
-{{- end }}

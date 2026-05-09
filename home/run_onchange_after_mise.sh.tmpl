@@ -1,4 +1,3 @@
-{{ if eq .chezmoi.os "linux" -}}
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -6,4 +5,3 @@ set -euo pipefail
 
 eval "$({{ .homebrewPrefix }}/bin/brew shellenv)"
 mise install
-{{- end }}

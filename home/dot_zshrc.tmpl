@@ -13,11 +13,10 @@ alias px='pnpm -s dlx'
 alias gg='ghq get --look'
 alias gd='cd $(ghq list -p | fzf)'
 alias cz=chezmoi
-{{ if eq .chezmoi.os "linux" }}
+
 # 1Passwordが使えるように
 alias ssh='/mnt/c/Windows/System32/OpenSSH/ssh.exe'
 alias ssh-add='/mnt/c/Windows/System32/OpenSSH/ssh-add.exe'
-{{ end }}
 
 # fzf
 function fzf-select-history() {
