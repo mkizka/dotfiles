@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#MISE description="Brewfile に無いパッケージをアンインストールする"
+set -euo pipefail
+
+brew bundle cleanup --global --force

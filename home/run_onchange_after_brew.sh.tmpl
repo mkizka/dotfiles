@@ -3,5 +3,5 @@ set -euo pipefail
 # Brewfile: {{ include "dot_Brewfile" | sha256sum }}
 
 eval "$({{ .homebrewPrefix }}/bin/brew shellenv)"
-brew bundle --global
+mise run brew-bundle
 mise run setup-shell
