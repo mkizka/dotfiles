@@ -1,14 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "==> run_once_before_init.sh"
-
-has() {
-  type "$1" > /dev/null 2>&1
-}
-
-sudo -n true 2>/dev/null || sudo -v
-
 sources_list=/etc/apt/sources.list.d/ubuntu.sources
 if [ -f "$sources_list" ] && grep -q 'http://archive\.ubuntu\.com/ubuntu/' "$sources_list"; then
   sudo sed -i.bak 's|http://archive\.ubuntu\.com/ubuntu/|https://ftp.udx.icscoe.jp/Linux/ubuntu/|g' "$sources_list"
@@ -17,6 +9,6 @@ fi
 sudo apt update
 sudo apt install -y git build-essential
 
-if ! has brew; then
+if ! command -v brew > /dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi

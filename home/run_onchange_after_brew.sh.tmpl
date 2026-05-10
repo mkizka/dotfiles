@@ -1,22 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
 # Brewfile: {{ include "dot_Brewfile" | sha256sum }}
-echo "==> run_onchange_after_brew.sh"
 
 eval "$({{ .homebrewPrefix }}/bin/brew shellenv)"
 brew bundle --global
-
-sudo -n true 2>/dev/null || sudo -v
-
-zsh_path="$(brew --prefix)/bin/zsh"
-
-if ! grep -qxF "$zsh_path" /etc/shells; then
-  echo "$zsh_path" | sudo tee -a /etc/shells > /dev/null
-fi
-
-user="$(id -un)"
-current_shell="$(getent passwd "$user" | cut -d: -f7)"
-if [ "$current_shell" != "$zsh_path" ]; then
-  sudo chsh -s "$zsh_path" "$user"
-fi
+mise run setup-shell

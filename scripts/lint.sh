@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-find scripts home -type f -name '*.sh' -print0 | xargs -0 shellcheck
+find scripts home -type f \( -name '*.sh' -o -path '*/mise/tasks/*' \) -print0 \
+  | xargs -0 shellcheck
 
 while IFS= read -r -d '' f; do
   if ! chezmoi execute-template < "$f" | shellcheck -; then

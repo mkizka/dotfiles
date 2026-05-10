@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+#MISE description=".wslconfig を Windows ホームに、wsl.conf を /etc にリンク"
+set -euo pipefail
+
+# Windows ユーザのホームディレクトリ (例: C:\Users\foo) を取得する
+# (cmd.exe を WSL のパスから起動すると stderr に UNC 警告が出るので捨てる)
+windows_home_path="$(/mnt/c/Windows/System32/cmd.exe /c 'echo %USERPROFILE%' 2> /dev/null | tr -d '\r')"
+
+# WSL から見たパス (例: /mnt/c/Users/foo) に変換する
+windows_home="$(wslpath "$windows_home_path")"
+
+# .wslconfig は Windows 側から読まれるので Windows ホームに置く
+cp --force "$HOME/.config/wsl/.wslconfig" "$windows_home/.wslconfig"
+
+# wsl.conf は WSL 側から /etc/wsl.conf として読まれるのでシンボリックリンクを張る
+sudo ln --symbolic --force --no-dereference "$HOME/.config/wsl/wsl.conf" /etc/wsl.conf

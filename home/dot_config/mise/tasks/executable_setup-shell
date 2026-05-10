@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#MISE description="zsh を /etc/shells に登録してログインシェルにする"
+set -euo pipefail
+
+# Homebrew でインストールした zsh のパス
+zsh_path="$(brew --prefix)/bin/zsh"
+
+# chsh は /etc/shells に登録されたシェルしか設定できないため、
+# 未登録なら追記する
+if ! grep --quiet --line-regexp --fixed-strings "$zsh_path" /etc/shells; then
+  echo "$zsh_path" | sudo tee -a /etc/shells > /dev/null
+fi
+
+# 現在のログインシェルを取得して、zsh でなければ変更する
+# (/etc/passwd の各エントリは ":" 区切りで 7 番目のフィールドがログインシェル)
+current_user="$(id -un)"
+current_shell="$(getent passwd "$current_user" | cut --delimiter ':' --fields 7)"
+if [ "$current_shell" != "$zsh_path" ]; then
+  sudo chsh -s "$zsh_path" "$current_user"
+fi
