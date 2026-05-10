@@ -3,6 +3,7 @@
     "API_TIMEOUT_MS": "600000",
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
+  "model": "opus",
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true,
     "serena@claude-plugins-official": true,
@@ -11,5 +12,9 @@
     "code-simplifier@claude-plugins-official": true
   },
   "language": "日本語",
-  "effortLevel": "medium"
+  "effortLevel": "xhigh",
+  "skipAutoPermissionPrompt": true,
+  "permissions": {
+    "defaultMode": "auto"
+  }
 }
