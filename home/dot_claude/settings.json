@@ -3,6 +3,9 @@
     "API_TIMEOUT_MS": "600000",
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
+  "permissions": {
+    "defaultMode": "auto"
+  },
   "model": "opus",
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true,
@@ -14,7 +17,5 @@
   "language": "日本語",
   "effortLevel": "xhigh",
   "skipAutoPermissionPrompt": true,
-  "permissions": {
-    "defaultMode": "auto"
-  }
+  "agentPushNotifEnabled": true
 }
