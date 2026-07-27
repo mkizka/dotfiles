@@ -1,6 +1,9 @@
 [tools]
-node = "24.12.0"
-pnpm = "11.0.4"
+deno = "latest"
+ni = "latest"
+node = "lts"
+"npm:skills" = "latest"
+pnpm = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["node"]
