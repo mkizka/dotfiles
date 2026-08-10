@@ -7,5 +7,9 @@
     email = git@mkizka.net
 [alias]
     prune-branches = !git fetch --prune && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D
-[credential]
-    helper = store
+[credential "https://github.com"]
+    helper =
+    helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+    helper =
+    helper = !gh auth git-credential
