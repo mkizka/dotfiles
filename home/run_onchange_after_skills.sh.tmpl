@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-exec {{ .homebrewPrefix }}/bin/mise exec -- skills add mkizka/skills --global --agent claude-code --skill '*' -y
+exec {{ .homebrewPrefix }}/bin/mise exec -- skills add mkizka/skills -y --global --skill '*' --agent claude-code codex 

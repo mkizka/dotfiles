@@ -3,6 +3,12 @@ repomix-output.txt
 memo.md
 
 # claude
+
 .claude/settings.local.json
 .claude/worktrees/
+
+# codex
+
+.codex/config.toml
+.codex/worktrees/
 .serena/
