@@ -1,0 +1,14 @@
+{{- /* chezmoi:modify-template */ -}}
+# chezmoi-managed:start
+
+model = "gpt-5.6-luna"
+model_reasoning_effort = "medium"
+
+# auto review mode
+# https://learn.chatgpt.com/docs/agent-approvals-security
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+
+# chezmoi-managed:end
+{{- .chezmoi.stdin | replaceAllRegex "(?s)^# chezmoi-managed:start.*?# chezmoi-managed:end\n*" "\n\n" -}}
