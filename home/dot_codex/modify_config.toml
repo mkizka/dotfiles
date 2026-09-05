@@ -1,4 +1,4 @@
-{{- /* chezmoi:modify-template */ -}}
+# chezmoi:modify-template
 # chezmoi-managed:start
 
 model = "gpt-5.6-luna"
@@ -10,5 +10,11 @@ sandbox_mode = "workspace-write"
 approval_policy = "on-request"
 approvals_reviewer = "auto_review"
 
-# chezmoi-managed:end
-{{- .chezmoi.stdin | replaceAllRegex "(?s)^# chezmoi-managed:start.*?# chezmoi-managed:end\n*" "\n\n" -}}
+[marketplaces.ponytail]
+source_type = "git"
+source = "https://github.com/DietrichGebert/ponytail.git"
+
+[plugins."ponytail@ponytail"]
+enabled = true
+
+# chezmoi-managed:end {{- .chezmoi.stdin | replaceAllRegex "(?s)^# chezmoi-managed:start.*?# chezmoi-managed:end\n*" "\n\n" -}}
