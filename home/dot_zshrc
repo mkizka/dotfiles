@@ -36,7 +36,7 @@ bindkey '^H' backward-kill-word  # Ctrl-Backspace
 BROWSER=/mnt/c/Windows/explorer.exe
 
 # cli
-eval "$({{ .homebrewPrefix }}/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(starship init zsh)"
 eval "$(mise activate zsh)"
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh

@@ -4,5 +4,5 @@ set -euo pipefail
 # .wslconfig: {{ include "dot_config/wsl/dot_wslconfig" | sha256sum }}
 
 {{ if stat "/usr/bin/wslpath" -}}
-exec {{ .homebrewPrefix }}/bin/mise run setup-wsl
+exec /home/linuxbrew/.linuxbrew/bin/mise run setup-wsl
 {{- end }}

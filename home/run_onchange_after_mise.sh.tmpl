@@ -2,4 +2,4 @@
 set -euo pipefail
 # mise: {{ include "dot_config/mise/config.toml" | sha256sum }}
 
-exec {{ .homebrewPrefix }}/bin/mise install
+exec /home/linuxbrew/.linuxbrew/bin/mise install
